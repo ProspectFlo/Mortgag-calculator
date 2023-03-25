@@ -1,0 +1,72 @@
+<form>
+  <label for="loan-amount">Loan amount:</label>
+  <input type="number" id="loan-amount" name="loan-amount" required>
+  
+  <label for="interest-rate">Interest rate:</label>
+  <input type="number" id="interest-rate" name="interest-rate" required>
+  
+  <label for="loan-term">Loan term:</label>
+  <input type="number" id="loan-term" name="loan-term" required>
+  
+  <label for="monthly-payment">Monthly payment:</label>
+  <input type="number" id="monthly-payment" name="monthly-payment">
+  
+  <button type="submit">Calculate</button>
+</form>
+form {
+  background-color: #f2f2f2;
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 400px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+const form = document.querySelector('form');
+const loanAmount = document.getElementById('loan-amount');
+const interestRate = document.getElementById('interest-rate');
+const loanTerm = document.getElementById('loan-term');
+const monthlyPayment = document.getElementById('monthly-payment');
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  const principal = parseFloat(loanAmount.value);
+  const annualInterestRate = parseFloat(interestRate.value) / 100 / 12;
+  const totalPayments = parseFloat(loanTerm.value) * 12;
+  
+  const x = Math.pow(1 + annualInterestRate, totalPayments);
+  const monthly = (principal*x*annualInterestRate)/(x-1);
+  
+  monthlyPayment.value = monthly.toFixed(2);
+});
+#monthly-payment {
+  font-weight: bold;
+  font-size: 18px;
+  color: #4CAF50;
+  margin-bottom: 0;
+}
